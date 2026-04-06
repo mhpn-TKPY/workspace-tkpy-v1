@@ -7,8 +7,7 @@
     "build:server": "nx build shop-server --configuration=production",
     "dev": "nx serve shop",
     "start": "node dist/apps/shop/server/server.mjs",
-    "vercel-build": "node vercel-build.js",
-    "vercel-install": "npm install --legacy-peer-deps"
+    "vercel-build": "node vercel-build.js"
   },
   "private": true,
   "dependencies": {
