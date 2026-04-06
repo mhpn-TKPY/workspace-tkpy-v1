@@ -1,0 +1,9 @@
+node_modules
+.git
+.vscode
+.angular
+coverage
+dist/apps/shop/browser/assets
+**/*.log
+.vercel
+.nx
