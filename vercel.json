@@ -3,5 +3,9 @@
   "buildCommand": "npm run vercel-build",
   "outputDirectory": "dist/apps/shop/browser",
   "installCommand": "npm install --legacy-peer-deps",
-  "framework": null
+  "framework": null,
+  "env": {
+    "NODE_ENV": "production",
+    "VERCEL": "1"
+  }
 }
