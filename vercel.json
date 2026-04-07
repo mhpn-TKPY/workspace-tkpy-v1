@@ -9,15 +9,45 @@
     "VERCEL": "1",
     "SKIP_API_CALLS": "true"
   },
-  "functions": {
-    "apps/api/dist/main.js": {
-      "maxDuration": 10
+  "builds": [
+    {
+      "src": "apps/api/dist/main.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/apps/shop/browser/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "dist/apps/shop/server/server.mjs",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/apps/api/dist/main.js"
+    },
+    {
+      "src": "/_next/static/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/dist/apps/shop/browser/_next/static/$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/dist/apps/shop/browser/static/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff2?|ttf|eot))$",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/dist/apps/shop/browser/$1"
     },
     {
       "src": "/(.*)",
