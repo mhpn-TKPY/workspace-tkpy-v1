@@ -1,29 +1,42 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "buildCommand": "node vercel-build.js",
   "outputDirectory": "dist/apps/shop/browser",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
-  "env": {
-    "NODE_ENV": "production",
-    "VERCEL": "1",
-    "SKIP_API_CALLS": "true"
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "@vercel/node@3"
+    }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/dist/apps/api/main.js"
+      "source": "/api/products/:id",
+      "destination": "/api/products/[id]"
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff2?|ttf|eot|webp|avif))$",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/dist/apps/shop/browser/$1"
+      "source": "/api/products",
+      "destination": "/api/products/index"
     },
     {
-      "src": "/(.*)",
-      "dest": "/dist/apps/shop/server/server.mjs"
+      "source": "/api/products-metadata/categories",
+      "destination": "/api/products-metadata/categories"
+    },
+    {
+      "source": "/api/products-metadata/price-range",
+      "destination": "/api/products-metadata/price-range"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff2?|ttf|eot|webp|avif))$",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

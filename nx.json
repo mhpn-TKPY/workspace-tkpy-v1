@@ -45,22 +45,7 @@
     "projectsRelationship": "independent",
     "docker": { "skipVersionActions": true }
   },
-  "plugins": [
-    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
-    {
-      "plugin": "@nx/vite/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "devTargetName": "dev",
-        "previewTargetName": "preview",
-        "serveStaticTargetName": "serve-static",
-        "typecheckTargetName": "typecheck",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
-      }
-    }
-  ],
+  
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",
@@ -74,7 +59,7 @@
     },
     "@nx/angular:component": { "style": "css" }
   },
-  "analytics": true,
-  "nxCloudId": "69d42cc68590dbcf4dc63c83",
+  "useDaemonProcess": false,
+  "neverConnectToCloud": true,
   "defaultBase": "main"
 }
