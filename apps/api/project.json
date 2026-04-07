@@ -16,9 +16,10 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "apps/api/dist",
+        "outputPath": "dist/apps/api",
         "format": ["cjs"],
-        "bundle": false,
+        "bundle": true,
+        "external": ["express", "@org/*", "rxjs"],
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
         "assets": ["apps/api/src/assets"],
@@ -27,18 +28,24 @@
           "sourcemap": true,
           "outExtension": {
             ".js": ".js"
-          }
+          },
+          "platform": "node",
+          "target": "node18",
+          "format": "cjs"
         }
       },
       "configurations": {
-        "development": {},
+        "development": {
+          "bundle": false
+        },
         "production": {
           "generateLockfile": true,
           "esbuildOptions": {
             "sourcemap": false,
             "outExtension": {
               ".js": ".js"
-            }
+            },
+            "minify": true
           }
         }
       }
