@@ -4,10 +4,15 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build shop --configuration=production",
+    "build:api": "nx build api --configuration=production",
     "build:server": "nx build shop-server --configuration=production",
+    "build:all": "npm run build:api && npm run build && npm run build:server",
     "dev": "nx serve shop",
     "start": "node dist/apps/shop/server/server.mjs",
-    "vercel-build": "node vercel-build.js"
+    "vercel-build": "node vercel-build.js",
+    "vercel-dev": "node vercel-build.js --dev",
+    "clean": "rm -rf dist node_modules",
+    "postinstall": "node -e \"try{require('fs').existsSync('node_modules/.bin/nx') || console.log('Nx will be installed with dev dependencies')}catch(e){}\""
   },
   "private": true,
   "dependencies": {

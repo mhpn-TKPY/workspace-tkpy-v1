@@ -1,9 +1,19 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
+  "buildCommand": "node vercel-build.js",
   "outputDirectory": "dist/apps/shop/browser",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
+  "functions": {
+    "dist/apps/api/main.js": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 10
+    },
+    "dist/apps/shop/server/server.mjs": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 10
+    }
+  },
   "env": {
     "NODE_ENV": "production",
     "VERCEL": "1",
@@ -11,11 +21,25 @@
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/dist/apps/api/main.js"
+      "src": "/api/health",
+      "dest": "/dist/apps/api/main.js",
+      "methods": ["GET"],
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff2?|ttf|eot))$",
+      "src": "/api/(.*)",
+      "dest": "/dist/apps/api/main.js",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      }
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff2?|ttf|eot|webp|avif))$",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       },
@@ -24,6 +48,25 @@
     {
       "src": "/(.*)",
       "dest": "/dist/apps/shop/server/server.mjs"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
     }
   ]
 }
