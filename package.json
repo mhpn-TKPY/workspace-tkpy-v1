@@ -3,16 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx build shop --configuration=production",
-    "build:api": "npx nx build api --configuration=production",
-    "build:server": "npx nx build shop-server --configuration=production",
+    "build": "nx build shop --configuration=production",
+    "build:api": "nx build api --configuration=production",
+    "build:server": "nx build shop-server --configuration=production",
     "build:all": "npm run build:api && npm run build && npm run build:server",
-    "dev": "npx nx serve shop",
+    "dev": "nx serve shop --configuration=development",
     "start": "node dist/apps/shop/server/server.mjs",
     "vercel-build": "node vercel-build.js",
     "vercel-dev": "node vercel-build.js --dev",
-    "clean": "rm -rf dist node_modules",
-    "postinstall": "node -e \"try{require('fs').existsSync('node_modules/.bin/nx') || console.log('Nx will be installed with dev dependencies')}catch(e){}\""
+    "clean": "rm -rf dist node_modules"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +31,7 @@
     "@nx/devkit": "22.6.2",
     "@nx/js": "22.6.2",
     "@nx/node": "22.6.2",
+    "@nx/vite": "22.6.2",
     "@nx/web": "22.6.2",
     "@nx/workspace": "22.6.2",
     "express": "^4.21.2",
@@ -39,6 +39,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
+    "vite": "^7.0.0",
     "zone.js": "0.16.0"
   },
   "devDependencies": {
@@ -53,7 +54,6 @@
     "@nx/eslint": "22.6.2",
     "@nx/eslint-plugin": "22.6.2",
     "@nx/playwright": "22.6.2",
-    "@nx/vite": "22.6.2",
     "@nx/vitest": "22.6.2",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "21.2.5",
@@ -78,7 +78,6 @@
     "supertest": "^7.1.4",
     "ts-node": "10.9.1",
     "typescript-eslint": "^8.40.0",
-    "vite": "^7.0.0",
     "vitest": "4.0.9"
   }
 }
