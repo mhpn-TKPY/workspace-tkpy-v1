@@ -7,26 +7,26 @@ export const apiUrlInterceptor: HttpInterceptorFn = (req, next) => {
   }
   
   // Pendant le build SSR, ne pas faire d'appels API
-  if (process.env['SKIP_API_CALLS'] === 'true') {
+  if (typeof process !== 'undefined' && process.env?.['SKIP_API_CALLS'] === 'true') {
     return next(req);
   }
   
-  // Déterminer l'URL de base de l'API
-  let apiBaseUrl = '';
-  
-  if (typeof window !== 'undefined') {
-    // Côté client : utiliser l'URL du navigateur
-    apiBaseUrl = window.location.origin;
-  } else {
+  // Pour les URLs relatives (comme /api/...), on les garde telles quelles
+  // Le navigateur/serveur les résoudra automatiquement
+  // Pour le SSR, on doit ajouter l'URL de base
+  if (typeof window === 'undefined') {
     // Côté serveur (SSR) : utiliser l'URL Vercel ou localhost
-    apiBaseUrl = process.env['VERCEL_URL'] 
+    const apiBaseUrl = typeof process !== 'undefined' && process.env?.['VERCEL_URL'] 
       ? `https://${process.env['VERCEL_URL']}`
-      : process.env['API_URL'] || 'http://localhost:3333';
+      : 'http://localhost:4200';
+    
+    const apiReq = req.clone({
+      url: `${apiBaseUrl}${req.url}`
+    });
+    
+    return next(apiReq);
   }
   
-  const apiReq = req.clone({
-    url: `${apiBaseUrl}${req.url}`
-  });
-  
-  return next(apiReq);
+  // Côté client : les URLs relatives fonctionnent automatiquement
+  return next(req);
 };

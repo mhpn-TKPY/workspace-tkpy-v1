@@ -8,7 +8,7 @@ import { Product, ApiResponse, PaginatedResponse, ProductFilter } from '@org/mod
 })
 export class ProductsService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:3333/api';
+  private readonly apiUrl = '/api';
 
   // Signals for state management
   private readonly loadingSignal = signal(false);
