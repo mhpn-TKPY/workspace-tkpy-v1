@@ -12,7 +12,7 @@ export const appRoutes: Route[] = [
       import('@org/shop/feature-products').then(m => m.featureProductsRoutes),
   },
   {
-    path: 'products',
+    path: 'products/:id',
     loadChildren: () =>
       import('@org/shop/feature-product-detail').then(
         m => m.featureProductDetailRoutes

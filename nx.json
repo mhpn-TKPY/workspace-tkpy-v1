@@ -38,8 +38,7 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
-    },
-    "@nx/vitest:test": { "cache": true, "inputs": ["default", "^production"] }
+    }
   },
   "release": {
     "projects": ["api"],
@@ -47,12 +46,7 @@
     "docker": { "skipVersionActions": true }
   },
   "plugins": [
-    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } },
     { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
-    {
-      "plugin": "@nx/docker",
-      "options": { "buildTarget": "docker:build", "runTarget": "docker:run" }
-    },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
@@ -65,22 +59,22 @@
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
       }
-    },
-    { "plugin": "@nx/vitest", "options": { "testTargetName": "vite:test" } }
+    }
   ],
   "generators": {
     "@nx/angular:application": {
-      "e2eTestRunner": "playwright",
+      "e2eTestRunner": "none",
       "linter": "eslint",
       "style": "css",
-      "unitTestRunner": "vitest-analog"
+      "unitTestRunner": "vitest"
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "vitest-analog"
+      "unitTestRunner": "vitest"
     },
     "@nx/angular:component": { "style": "css" }
   },
   "analytics": true,
-  "nxCloudId": "69d42cc68590dbcf4dc63c83"
+  "nxCloudId": "69d42cc68590dbcf4dc63c83",
+  "defaultBase": "main"
 }
