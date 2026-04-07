@@ -59,7 +59,7 @@
     },
     "@nx/angular:component": { "style": "css" }
   },
-  "analytics": true,
-  "nxCloudId": "69d42cc68590dbcf4dc63c83",
+  "useDaemonProcess": false,
+  "neverConnectToCloud": true,
   "defaultBase": "main"
 }
