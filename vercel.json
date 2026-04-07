@@ -9,20 +9,6 @@
     "VERCEL": "1",
     "SKIP_API_CALLS": "true"
   },
-  "builds": [
-    {
-      "src": "dist/apps/api/main.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "dist/apps/shop/browser/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "dist/apps/shop/server/server.mjs",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
